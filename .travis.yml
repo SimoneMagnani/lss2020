@@ -1,4 +1,4 @@
-language: java
+language: minimal
 
 git:
   depth: false
@@ -8,8 +8,12 @@ os:
   - linux
   - osx
 
+arch:
+  - amd64
+  - arm64
+
 install:
   true
 
 script:
-  - ./gradlew check
+  - travis_retry ./gradlew check
