@@ -13,7 +13,7 @@ plugins {
     id("org.danilopianini.publish-on-central")
 }
 
-group = "org.danilopianini"
+group = "io.github.simonemagnani"
 
 gitSemVer {
     version = computeGitSemVer()
