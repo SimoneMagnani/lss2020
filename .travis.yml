@@ -5,4 +5,4 @@ git:
   autocrlf: input
 
 script:
-  - ./gradlew check
+  - sh gradlew check
