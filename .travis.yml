@@ -5,8 +5,8 @@ git:
   autocrlf: input
 
 os:
-  linux
-  osx
+  - linux
+  - osx
 
 install:
   true
