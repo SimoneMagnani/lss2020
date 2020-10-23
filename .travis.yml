@@ -56,7 +56,7 @@ jobs:
   include:
     - <<: *reference_machine
       stage: Compile
-      script: ./gradlew compile
+      script: ./gradlew compileKotlin
     - <<: *reference_machine
       stage: Kotlin Style Check
       script: ./gradlew detekt ktlintCheck --parallel
