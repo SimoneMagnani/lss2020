@@ -40,6 +40,8 @@ stages:
   - Kotlin Style Check
   - Complete Check
   - test
+  - name: Delivery
+    if: repo = SimoneMagnani/lss2020
 
 _reference_machine: &reference_machine
   arch: *reference_arch
@@ -66,20 +68,22 @@ jobs:
       stage: Compile
       script: ./gradlew compileKotlin --parallel
       workspaces:
-        create: *compiled_env
-        paths:
-          - "$TRAVIS_BUILD_DIR"
-          - "$HOME/.gradle"
+        create:
+          name: *compiled_env
+          paths:
+            - "$TRAVIS_BUILD_DIR"
+            - "$HOME/.gradle"
     - <<: *reference_machine
       stage: Kotlin Style Check
       <<: *import_ws
       script: ./gradlew detekt ktlintCheck --parallel
-
     - <<: *reference_machine
       stage: Complete Check
       <<: *import_ws
       script:
         - travis_retry ./gradlew check
+    - stage: Delivery
+      script: "true"
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS
