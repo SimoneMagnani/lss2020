@@ -55,13 +55,13 @@ jobs:
       stage: test
   include:
     - <<: *reference_machine
-      stage: Complile
+      stage: Compile
       script: ./gradlew compile
     - <<: *reference_machine
       stage: Kotlin Style Check
       script: ./gradlew detekt ktlintCheck --parallel
     - <<: *reference_machine
-      stage: Check
+      stage: Complete Check
       script:
         - travis_retry ./gradlew check
 
