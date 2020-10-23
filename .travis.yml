@@ -1,3 +1,10 @@
+_reference_os: &reference_os
+  linux
+_reference_arch: &reference_arch
+  amd64
+_reference_JDK: &reference_JDK
+  JDK="adopt@1.11"
+
 language: minimal
 
 git:
@@ -5,14 +12,14 @@ git:
   autocrlf: input
 
 os:
-  - linux
+  - *reference_os
   - osx
   - windows
 
 dist: focal
 
 arch:
-  - amd64
+  - *reference_arch
   - arm64
 
 env:
@@ -21,11 +28,16 @@ env:
     - GRAVIS="$HOME/gravis"
   matrix:
     - JDK="adopt@1.8"
-    - JDK="adopt@1.11"
+    - *reference_JDK
     - JDK="adopt@1.14"
     - JDK="adopt-openj9@1.8"
     - JDK="adopt-openj9@1.11"
     - JDK="adopt-openj9@1.14"
+
+_reference_machine: &reference_machine
+  arch: *reference_arch
+  os: *reference_os
+  env: *reference_JDK
 
 jobs:
   exclude:
@@ -33,6 +45,13 @@ jobs:
       env: JDK="adopt-openj9@1.8"
     - arch: arm64
       env: JDK="adopt-openj9@1.14"
+    - <<: *reference_machine
+      stage: test
+  include:
+    - <<: *reference_machine
+      stage: check
+      script:
+        - travis_retry ./gradlew check
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS
