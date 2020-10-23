@@ -53,6 +53,10 @@ jobs:
       script:
         - travis_retry ./gradlew check
 
+stages:
+  - check
+  - test
+
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS
   - source $GRAVIS/install-jdk
