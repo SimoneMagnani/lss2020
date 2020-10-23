@@ -34,6 +34,12 @@ env:
     - JDK="adopt-openj9@1.11"
     - JDK="adopt-openj9@1.14"
 
+stages:
+  - Compile
+  - Kotlin Style Check
+  - Complete Check
+  - test
+
 _reference_machine: &reference_machine
   arch: *reference_arch
   os: *reference_os
@@ -49,20 +55,22 @@ jobs:
       stage: test
   include:
     - <<: *reference_machine
-      stage: check
+      stage: Complile
+      script: ./gradlew compile
+    - <<: *reference_machine
+      stage: Kotlin Style Check
+      script: ./gradlew detekt ktlintCheck --parallel
+    - <<: *reference_machine
+      stage: Check
       script:
         - travis_retry ./gradlew check
-
-stages:
-  - check
-  - test
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS
   - source $GRAVIS/install-jdk
 
 install:
-  true
+  - "true"
 
 script:
   - travis_retry ./gradlew check
