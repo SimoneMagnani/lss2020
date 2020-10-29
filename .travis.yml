@@ -43,7 +43,7 @@ stages:
   - Kotlin Style Check
   - Complete Check
   - name: test
-    if: 'commit_message =~ /\^[\s*skip(?: |-|\.)test\s*\].*/'
+    if: 'commit_message !~ /\^[\s*skip(?: |-|\.)test\s*\].*/'
   - name: Delivery
     if: repo = SimoneMagnani/lss2020
 
@@ -91,7 +91,10 @@ jobs:
         - openssl aes-256-cbc -K $encrypted_f778b2e1574b_key -iv $encrypted_f778b2e1574b_iv -in secrets.asc.enc -out secrets.asc -d
         - export ORG_GRADLE_PROJECT_signingKey=$(cat secrets.asc)
         - rm secrets.asc
-      script: "true"
+      script:
+        - travis_retry ./gradlew publishMavenCentralPublicationToMavenRepository
+      after_success:
+        - travis_retry ./gradlew publishPlugins -Pgradle.publish.key=$PLUGIN_PORTAL_KEY -Pgradle.publish.secret=$PLUGIN_PORTAL_SECRET
 
 before_install:
   - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS

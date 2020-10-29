@@ -122,10 +122,10 @@ publishing {
     }
 }
 
-if(System.getenv("CI") == "true") {
+if (System.getenv("CI") == "true") {
     signing {
         val signingKey: String? by project
-        val signingPassword: String? by project
-        useInMemoryPgpKeys(signingKey, signingPassword)
+        val signingPass: String? by project
+        useInMemoryPgpKeys(signingKey, signingPass)
     }
 }
