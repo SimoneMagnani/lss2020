@@ -109,10 +109,10 @@ jobs:
       services:
         - docker
       script:
-        - ./gradlew generateVersionFile
-        - cp gradlew container/gradlew
-        - cp build/version container/version
         - cp -r gradle container/
+        - cp gradlew container/gradlew
+        - ./gradlew generateVersionFile
+        - cp build/version container/version
         - cd container
         - docker build .
 
