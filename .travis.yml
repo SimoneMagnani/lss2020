@@ -1,4 +1,4 @@
-if: repo != head_repo AND (tag IS blank OR tag =~ /\d+(\.\d+)*/)
+if: repo != head_repo AND (tag IS blank OR tag =~ /\d+(\.\d+)*\S*/)
 
 _reference_os: &reference_os
   linux
