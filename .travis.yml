@@ -106,11 +106,15 @@ jobs:
           on:
             all_branches: true
     - stage: Container
+      services:
+        - docker
       script:
+        - ./gradlew generateVersionFile
         - cp gradlew container/gradlew
         - cp build/version container/version
         - cp -r gradle container/
-        - ./gradlew generateVersionFile
+        - cd container
+        - docker build .
 
 
 before_install:
