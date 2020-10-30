@@ -111,6 +111,7 @@ jobs:
       script:
         - cp -r gradle container/
         - cp gradlew container/gradlew
+        - ./gradlew createClasspathManifest
         - ./gradlew generateVersionFile
         - cp build/version container/version
         - cd container
