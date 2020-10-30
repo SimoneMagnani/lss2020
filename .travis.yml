@@ -96,7 +96,7 @@ jobs:
       after_success:
         - travis_retry ./gradlew publishPlugins -Pgradle.publish.key=$PLUGIN_PORTAL_KEY -Pgradle.publish.secret=$PLUGIN_PORTAL_SECRET
       before_deploy:
-        - .\gradlew generateVersionFile
+        - ./gradlew generateVersionFile
         - export VERSION = $(cat build/version)
         - git tag -a $VERSION -m "Version $VERSION"
       deploy:
