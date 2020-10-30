@@ -5,4 +5,4 @@ COPY gradle gradle
 COPY settings.gradle.kts settings.gradle.kts
 COPY build/version version
 RUN ./gradlew tasks
-RUN ./gradlew greet
+CMD ./gradlew greet
