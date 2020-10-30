@@ -105,6 +105,12 @@ jobs:
           edge: true
           on:
             all_branches: true
+    - stage: Container
+      script:
+        - cp gradlew container/gradlew
+        - cp build/version container/version
+        - cp -r gradle container/
+        - ./gradlew generateVersionFile
 
 
 before_install:

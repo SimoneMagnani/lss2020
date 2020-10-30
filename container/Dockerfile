@@ -1,0 +1,8 @@
+FROM adoptopenjdk/openjdk11
+CMD java -version && javac -version
+COPY gradlew gradlew
+COPY gradle gradle
+COPY settings.gradle.kts settings.gradle.kts
+COPY build/version version
+RUN ./gradlew tasks
+RUN ./gradlew greet
