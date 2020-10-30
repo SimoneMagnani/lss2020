@@ -3,6 +3,6 @@ CMD java -version && javac -version
 COPY gradlew gradlew
 COPY gradle gradle
 COPY settings.gradle.kts settings.gradle.kts
-COPY build/version version
+COPY version version
 RUN ./gradlew tasks
 CMD ./gradlew greet
